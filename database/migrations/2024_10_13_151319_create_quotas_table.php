@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('specialty_users', function (Blueprint $table) {
+        Schema::create('quotas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('specialty_id')->constrained('specialties')->onDelete('cascade');
+            $table->foreignId('specialty_id')->constrained()->onDelete('cascade'); // Relación con specialties
+            $table->string('day'); // Día como string (Ej: 'Día 01', 'Día 02', etc.)
+            $table->unsignedInteger('quota')->default(0); // Número de cupos asignados para ese día
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('specialty_users');
+        Schema::dropIfExists('quotas');
     }
 };

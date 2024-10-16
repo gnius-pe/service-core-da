@@ -9,9 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    
+    public function up()
     {
-        Schema::create('personal_access_tokens', function (Blueprint $table) {
+        if (!Schema::hasTable('users')) {
             Schema::create('users', function (Blueprint $table) {
                 $table->id();
                 $table->string('identification_type');
@@ -23,12 +24,13 @@ return new class extends Migration
                 $table->string('organizational_email');
                 $table->string('password');
                 $table->string('state');
+                $table->foreignId('specialty_id')->constrained('specialties')->onDelete('cascade');
+                
                 $table->timestamps();
             });
-            
-        });
+        }
     }
-
+    
     /**
      * Reverse the migrations.
      */

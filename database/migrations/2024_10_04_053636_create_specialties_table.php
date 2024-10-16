@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('specialties', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->integer('number_of_places');
-            $table->string('creation_date');
-            $table->string('status');
+            $table->string('name'); // Nombre de la especialidad
+            $table->text('description')->nullable(); // Descripción de la especialidad
+            $table->string('status', 50)->default('Activo');
             $table->timestamps();
         });
     }
